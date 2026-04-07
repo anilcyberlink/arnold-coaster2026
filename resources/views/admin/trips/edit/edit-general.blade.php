@@ -10,7 +10,7 @@
                     <div class="col-lg-12">
                         <div class="bs-component">
                             <input type="text" id="trip_title" name="trip_title" class="form-control"
-                                value="{{ $data->trip_title }}" placeholder="Trip Title" />
+                                value="{{ $data->trip_title }}" placeholder="Trip Title" required />
                             <input type="hidden" id="uri" name="uri" value="{{ $data->uri }}" />
                         </div>
                     </div>
@@ -32,8 +32,8 @@
                                 <select class="form-control" name="trip_grade">
                                     <option value="0"> Select Grade </option>
                                     @foreach ($trek as $row)
-                                        <option value="{{ $row->id }}"
-                                            {{ $row->id == $data->trip_grade ? 'selected' : '' }}>{{ $row->trip_grade }}
+                                        <option value="{{ $row->id }}" {{ $row->id == $data->trip_grade ? 'selected' : '' }}>
+                                            {{ $row->trip_grade }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -48,12 +48,14 @@
                                 value="{{ $data->best_season }}" /> -->
                             <select name="best_season" id="best_season" class="form-control">
                                 <option value="" disabled>Select season</option>
-                               <option value="Spring" {{($data->best_season == 'Spring')?'selected':''}}>Spring</option>
-                               <option value="Summer" {{($data->best_season == 'Summer')?'selected':''}}>Summer</option>
-                               <option value="Monsoon" {{($data->best_season == 'Monsoon')?'selected':''}}>Monsoon</option>
-                               <option value="Autumn" {{($data->best_season == 'Autumn')?'selected':''}}>Autumn</option>
-                               <option value="Winter" {{($data->best_season == 'Winter')?'selected':''}}>Winter</option>
-                                <option value="Spring/Autumn" {{($data->best_season == 'Winter')?'selected':''}}>Spring/Autumn</option>
+                                <option value="Spring" {{($data->best_season == 'Spring') ? 'selected' : ''}}>Spring</option>
+                                <option value="Summer" {{($data->best_season == 'Summer') ? 'selected' : ''}}>Summer</option>
+                                <option value="Monsoon" {{($data->best_season == 'Monsoon') ? 'selected' : ''}}>Monsoon
+                                </option>
+                                <option value="Autumn" {{($data->best_season == 'Autumn') ? 'selected' : ''}}>Autumn</option>
+                                <option value="Winter" {{($data->best_season == 'Winter') ? 'selected' : ''}}>Winter</option>
+                                <option value="Spring/Autumn" {{($data->best_season == 'Winter') ? 'selected' : ''}}>
+                                    Spring/Autumn</option>
                             </select>
                         </div>
                     </div>
@@ -70,8 +72,7 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Group Size</label>
-                            <input type="text" name="group_size" class="form-control"
-                                value="{{ $data->group_size }}" />
+                            <input type="text" name="group_size" class="form-control" value="{{ $data->group_size }}" />
                         </div>
                     </div>
                 </div>
@@ -88,15 +89,14 @@
                             <label>Country</label>
                             <!--<input type="text" name="peak_name" class="form-control" value="{{ $data->peak_name }}"-->
                             <!--    placeholder="Staff" />-->
-                                  <select name="peak_name" id="country" class="form-control">
-                                 <option value="0">Select Country</option>
-                            @if ($countries->count() > 0)
-                                @foreach ($countries as $row)
-                                    <option value="{{ $row->country }}"
-                                        {{ $row->country == $data->peak_name ? 'selected' : '' }}>{{ $row->country }}
-                                    </option>
-                                @endforeach
-                            @endif
+                            <select name="peak_name" id="country" class="form-control">
+                                <option value="0">Select Country</option>
+                                @if ($countries->count() > 0)
+                                    @foreach ($countries as $row)
+                                        <option value="{{ $row->country }}" {{ $row->country == $data->peak_name ? 'selected' : '' }}>{{ $row->country }}
+                                        </option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -142,8 +142,7 @@
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Start Date</label>
-                            <input type="text" name="start_date" class="form-control"
-                                value="{{ $data->start_date }}" />
+                            <input type="text" name="start_date" class="form-control" value="{{ $data->start_date }}" />
                         </div>
                     </div>
                     <!--<div class="col-lg-6">-->
@@ -153,40 +152,39 @@
                     <!--            value="{{ $data->guided_group }}" />-->
                     <!--    </div>-->
                     <!--</div>-->
-                        <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Discount (% Off)</label>
-                            <input type="text" name="discount" class="form-control"
-                                value="{{ $data->discount }}" />
+                            <input type="text" name="discount" class="form-control" value="{{ $data->discount }}" />
                         </div>
                         <small>Note: Discount must be numeric value!</small>
                     </div>
                 </div>
                 <div class="form-group">
-                
+
                 </div>
-                {{-- <div class="form-group"> 
+                {{-- <div class="form-group">
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Video ID</label>
-                           <input type="text" class="form-control" name="trip_video" value="{{ $data->trip_video }}"
+                            <input type="text" class="form-control" name="trip_video" value="{{ $data->trip_video }}"
                                 placeholder="Trip Video" />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="bs-component">
                             <label>Video Status</label>
-                             <select class="form-control" name="video_status">
+                            <select class="form-control" name="video_status">
                                 <option @if ($data->video_status == 1)selected @endif value="1">Enabled</option>
                                 <option @if ($data->video_status == 0)selected @endif value="0">Disabled</option>
                             </select>
                         </div>
                     </div>
-                    
+
                 </div> --}}
             </div>
         </div>
-        
+
         <!--<div class="panel">-->
         <!--    <div class="panel-heading">-->
         <!--        <span class="panel-title">Caption</span>-->
@@ -202,7 +200,7 @@
         <!--        </div>-->
         <!--    </div>-->
         <!--</div>-->
-        
+
         <div class="panel">
             <div class="panel-heading">
                 <span class="panel-title">Trip Brief</span>
@@ -211,7 +209,8 @@
                 <div class="form-group">
                     <div class="col-lg-12">
                         <div class="bs-component">
-                            <textarea class="my-editor form-control" name="trip_excerpt" rows="3" >{{ $data->trip_excerpt }}</textarea>
+                            <textarea class="my-editor form-control" name="trip_excerpt"
+                                rows="3">{{ $data->trip_excerpt }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -226,7 +225,7 @@
                 <div class="form-group">
                     <div class="col-lg-12">
                         <div class="bs-component">
-                            <textarea class="my-editor form-control" name="trip_content" id="trip_content" 
+                            <textarea class="my-editor form-control" name="trip_content" id="trip_content"
                                 rows="9">{{ $data->trip_content }}</textarea>
                         </div>
                     </div>
@@ -269,15 +268,16 @@
                 <div class="form-group">
                     <div class="col-lg-12">
                         <div class="bs-component">
-                            <input type="text" name="meta_key" class="form-control"
-                                value="{{ $data->meta_key }}" placeholder="Meta Key" />
+                            <input type="text" name="meta_key" class="form-control" value="{{ $data->meta_key }}"
+                                placeholder="Meta Key" />
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12">
                         <div class="bs-component">
-                            <textarea class="form-control" name="meta_description" rows="3" placeholder="Meta Description">{{ $data->meta_description }}</textarea>
+                            <textarea class="form-control" name="meta_description" rows="3"
+                                placeholder="Meta Description">{{ $data->meta_description }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -302,17 +302,18 @@
                 <h4> Trip Type </h4>
                 <div class="hd_show_con">
                     <select class="form-control onchange-select" name="trip_type">
-                        <option value="0"> Select Trip Type </option>
+                        <option value="0" disabled> Select Trip Type </option>
                         @if ($trip_type->count(0 > 0))
                             @foreach ($trip_type as $row)
                                 <option value="{{ $row->id }}" @if ($data->trip_type == $row->id) selected @endif>
-                                    {{ $row->trip_type }} </option>
+                                    {{ $row->id == 1 ? 'Trekking' : $row->trip_type }}
+                                </option>
                             @endforeach
                         @endif
                     </select>
                 </div>
             </div>
-            <div class="sid_bvijay mb10 onchange 1">
+            <!-- <div class="sid_bvijay mb10 onchange 1">
                 <h4> Regions </h4>
                 <div class="hd_show_con">
                     <div class=" has-feedback has-search">
@@ -326,8 +327,7 @@
                                     @foreach ($regions as $row)
                                         <li>
                                             <label class="option">
-                                                <input type="checkbox" name="region[]" value="{{ $row->id }}"
-                                                    {{ in_array($row->id, $checked_regions) ? 'checked' : '' }}>
+                                                <input type="checkbox" name="region[]" value="{{ $row->id }}" {{ in_array($row->id, $checked_regions) ? 'checked' : '' }}>
                                                 <span class="checkbox"></span> {{ $row->title }}
                                             </label>
                                         </li>
@@ -337,7 +337,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="onchange 2">
                 <div class="sid_bvijay mb10">
@@ -350,9 +350,7 @@
                                         @foreach ($destinations as $row)
                                             <li>
                                                 <label class="option">
-                                                    <input type="checkbox" name="destination[]"
-                                                        value="{{ $row->id }}"
-                                                        {{ in_array($row->id, $checked_destinations) ? 'checked' : '' }}>
+                                                    <input type="checkbox" name="destination[]" value="{{ $row->id }}" {{ in_array($row->id, $checked_destinations) ? 'checked' : '' }}>
                                                     <span class="checkbox"></span> {{ $row->title }}
                                                 </label>
                                             </li>
@@ -365,32 +363,32 @@
                 </div>
             </div>
 
-            {{-- <div class="sid_bvijay mb10"> 
-            <h4> Activity </h4>
-            <div class="hd_show_con">
-                 <div class=" has-feedback has-search">
-                      <input class="category-search1 form-control" type="text" placeholder="Search.."> 
-                      <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            {{-- <div class="sid_bvijay mb10">
+                <h4> Activity </h4>
+                <div class="hd_show_con">
+                    <div class=" has-feedback has-search">
+                        <input class="category-search1 form-control" type="text" placeholder="Search..">
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
-                <div class="tab-content mb15">
-                    <div id="tab1" class="tab-pane active">
-                        @if ($activities->count() > 0)
+                    <div class="tab-content mb15">
+                        <div id="tab1" class="tab-pane active">
+                            @if ($activities->count() > 0)
                             <ul class="ctgor category-list1" style="height:200px">
                                 @foreach ($activities as $row)
-                                    <li>
-                                        <label class="option">
-                                            <input type="checkbox" name="activity[]" value="{{ $row->id }}"
-                                                {{ in_array($row->id, $checked_activities) ? 'checked' : '' }}>
-                                            <span class="checkbox"></span> {{ $row->title }}
-                                        </label>
-                                    </li>
+                                <li>
+                                    <label class="option">
+                                        <input type="checkbox" name="activity[]" value="{{ $row->id }}" {{
+                                            in_array($row->id, $checked_activities) ? 'checked' : '' }}>
+                                        <span class="checkbox"></span> {{ $row->title }}
+                                    </label>
+                                </li>
                                 @endforeach
                             </ul>
-                        @endif
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>  --}}
+            </div> --}}
 
             <div class="sid_bvijay mb10">
                 <h4> Trip Groups </h4>
@@ -402,9 +400,7 @@
                                     @foreach ($trip_groups as $row)
                                         <li>
                                             <label class="option">
-                                                <input type="checkbox" name="tripgroup[]"
-                                                    value="{{ $row->id }}"
-                                                    {{ in_array($row->id, $checked_tripgroups) ? 'checked' : '' }}>
+                                                <input type="checkbox" name="tripgroup[]" value="{{ $row->id }}" {{ in_array($row->id, $checked_tripgroups) ? 'checked' : '' }}>
                                                 <span class="checkbox"></span> {{ $row->title }}
                                             </label>
                                         </li>
@@ -433,11 +429,11 @@
                 <div class="hd_show_con">
                     <div id="xedit" class="bs-component">
                         <label class="field prepend-icon append-button file mb20">
-                            <span class="button btn btn-primary">{{ $data->thumbnail ? 'Change' : 'Choose File' }}</span>
+                            <span
+                                class="button btn btn-primary">{{ $data->thumbnail ? 'Change' : 'Choose File' }}</span>
                             <input type="file" class="gui-file" name="thumbnail" id="file1"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('Thumbnail').value = this.value;">
-                            <input type="text" class="gui-input" id="Thumbnail"
-                                placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="Thumbnail" placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -463,8 +459,7 @@
                             <span class="button btn btn-primary">{{ $data->trip_map ? 'Change' : 'Choose File' }}</span>
                             <input type="file" class="gui-file" name="trip_map" id="file2"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('trip_map').value = this.value;">
-                            <input type="text" class="gui-input" id="trip_map"
-                                placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="trip_map" placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -486,11 +481,11 @@
                 <div class="hd_show_con">
                     <div class="bs-component">
                         <label class="field prepend-icon append-button file mb20">
-                            <span class="button btn btn-primary">{{ $data->thumbnail ? 'banner' : 'Choose File' }}</span>
+                            <span
+                                class="button btn btn-primary">{{ $data->thumbnail ? 'banner' : 'Choose File' }}</span>
                             <input type="file" class="gui-file" name="banner" id="file3"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('banner').value = this.value;">
-                            <input type="text" class="gui-input" id="banner"
-                                placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="banner" placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -498,8 +493,7 @@
                     </div>
                     @if ($data->banner)
                         <div class="delete-fe-image banner_id{{ $data->id }}">
-                            <img src="{{ asset(env('PUBLIC_PATH') . 'uploads/banners/' . $data->banner) }}"
-                                width="200px" />
+                            <img src="{{ asset(env('PUBLIC_PATH') . 'uploads/banners/' . $data->banner) }}" width="200px" />
                             <a href="#{{ $data->id }}" class="bannerdelete">X</a>
                         </div>
                     @endif
@@ -515,8 +509,7 @@
                             <span class="button btn btn-primary">{{ $data->trip_pdf ? 'Change' : 'Choose File' }}</span>
                             <input type="file" class="gui-file" name="upload_pdf" id="file1"
                                 onChange="checkFileSize(this.files[0], this), document.getElementById('upload_pdf').value = this.value;">
-                            <input type="text" class="gui-input" id="upload_pdf"
-                                placeholder="Please select a photo">
+                            <input type="text" class="gui-input" id="upload_pdf" placeholder="Please select a photo">
                             <label class="field-icon">
                                 <i class="fa fa-upload"></i>
                             </label>
@@ -524,8 +517,7 @@
                     </div>
                     @if ($data->trip_pdf)
                         <div class="delete-fe-image pdf_id{{ $data->id }}">
-                            <embed src="{{ asset(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf) }}"
-                                width="200px" />
+                            <embed src="{{ asset(env('PUBLIC_PATH') . 'uploads/pdf/' . $data->trip_pdf) }}" width="200px" />
                             <a href="#{{ $data->id }}" class="pdfdelete">X</a>
                         </div>
                     @endif

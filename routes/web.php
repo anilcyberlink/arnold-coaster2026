@@ -20,9 +20,9 @@ Route::get('/verify/{token}', 'FrontendControllers\FrontpageController@verifyUse
 Route::get('/contact-verify/{token}', 'FrontendControllers\FrontpageController@verifyContact')->name('verify-contact');
 
 //Travel Guide template Routes
-Route::get('travel-guide/{uri}','FrontendControllers\GuideController@travel_guide')->name('trip-guide');
-Route::get('trip-insurance/{uri}','FrontendControllers\GuideController@trip_insurance')->name('trip_insurance');
-Route::get('trip-payment/{uri}','FrontendControllers\GuideController@payment')->name('payment');
+Route::get('travel-guide/{uri}', 'FrontendControllers\GuideController@travel_guide')->name('trip-guide');
+Route::get('trip-insurance/{uri}', 'FrontendControllers\GuideController@trip_insurance')->name('trip_insurance');
+Route::get('trip-payment/{uri}', 'FrontendControllers\GuideController@payment')->name('payment');
 
 // Normal Pages
 Route::get('{uri}.html', 'FrontendControllers\FrontpageController@pagedetail')->name('page.pagedetail');
@@ -30,11 +30,11 @@ Route::get('type-{uri}', 'FrontendControllers\FrontpageController@posttype')->na
 
 // For pagetype
 Route::delete('admin/pagetype/{id}', 'AdminControllers\Pages\PageTypeController@destroy')->name('type.pagetype.destroy');
-Route::delete('delete_pagetype_thumb/{id}','AdminControllers\Pages\PageTypeController@delete_pagetype_thumb');
+Route::delete('delete_pagetype_thumb/{id}', 'AdminControllers\Pages\PageTypeController@delete_pagetype_thumb');
 
 //For UsefulInfo
-Route::get('info/{uri}','FrontendControllers\FrontpageController@usefulInfo')->name('info.list');
-Route::get('info/{parenturi}/{uri}','FrontendControllers\FrontpageController@usefulInfoDetails')->name('info.details');
+Route::get('info/{uri}', 'FrontendControllers\FrontpageController@usefulInfo')->name('info.list');
+Route::get('info/{parenturi}/{uri}', 'FrontendControllers\FrontpageController@usefulInfoDetails')->name('info.details');
 
 //Show Popular Trips List
 Route::get('popular-trips', 'FrontendControllers\FrontpageController@popular_trips_list')->name('popular-trips');
@@ -51,9 +51,9 @@ Route::get('expeditions/list.html', 'FrontendControllers\FrontpageController@exp
 Route::get('trips/{luxury}.html', 'FrontendControllers\FrontpageController@luxuryTrip')->name('page.luxurytriplist');
 Route::any('search-trip', 'FrontendControllers\FrontpageController@show_search_form')->name('search-trip');
 Route::post('trip-booking', 'FrontendControllers\FrontpageController@post_tripbooking')->name('post-trip');
-Route::post('inquiry-now','FrontendControllers\FrontpageController@post_inquiry')->name('post-inquiry');
-Route::post('contact','FrontendControllers\FrontpageController@contact_us')->name('contact');  
-Route::get('team/{uri}','FrontendControllers\FrontpageController@teamdetail')->name('team.teamdetail');
+Route::post('inquiry-now', 'FrontendControllers\FrontpageController@post_inquiry')->name('post-inquiry');
+Route::post('contact', 'FrontendControllers\FrontpageController@contact_us')->name('contact');
+Route::get('team/{uri}', 'FrontendControllers\FrontpageController@teamdetail')->name('team.teamdetail');
 Route::get('page/activities/{uri}', 'FrontendControllers\FrontpageController@activities')->name('page.activities');
 Route::post('page/customize-trip', 'FrontendControllers\FrontpageController@customize_trip')->name('customize-trip');
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -69,33 +69,34 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resources([
-        'admin/user' => 'AdminControllers\Members\UserController',       
+        'admin/user' => 'AdminControllers\Members\UserController',
         'admin/partner' => 'AdminControllers\Banners\BannerController',
-        'admin/postcategory' => 'AdminControllers\Posts\PostCategoryController',      
-        'admin/settings' => 'AdminControllers\Settings\SettingController',      
+        'admin/postcategory' => 'AdminControllers\Posts\PostCategoryController',
+        'admin/settings' => 'AdminControllers\Settings\SettingController',
         'admin/trip' => 'AdminControllers\Travels\TripController',
         'admin/region' => 'AdminControllers\Travels\RegionController',
-        'admin/activity' => 'AdminControllers\Travels\ActivityController',        
-        'admin/tripgroup' => 'AdminControllers\Travels\TripGroupController',       
+        'admin/activity' => 'AdminControllers\Travels\ActivityController',
+        'admin/tripgroup' => 'AdminControllers\Travels\TripGroupController',
         'admin/expedition' => 'AdminControllers\Destinations\DestinationController',
-        'admin/pagetype'=>'AdminControllers\Pages\PageTypeController',     
-        'admin/teams'=>'AdminControllers\Teams\TeamController', 
+        'admin/pagetype' => 'AdminControllers\Pages\PageTypeController',
+        'admin/teams' => 'AdminControllers\Teams\TeamController',
         'admin.testimonials' => 'AdminControllers\Cost\CostIncludesController',
-        'admin.trip-gear' => 'AdminControllers\Travels\TripGearController', 
+        'admin.trip-gear' => 'AdminControllers\Travels\TripGearController',
         'admin.tripdocs' => 'AdminControllers\Travels\TripDocController',
         'trip-inquiry' => 'AdminControllers\Inquiry\TripInquiryController',
-        'contact-us'=>'AdminControllers\Inquiry\TripBookingController',
-        'trip-customize'=>'AdminControllers\Inquiry\TripCustomizeController',  
+        'contact-us' => 'AdminControllers\Inquiry\TripBookingController',
+        'trip-customize' => 'AdminControllers\Inquiry\TripCustomizeController',
     ]);
+    Route::get('admin/trekking', 'AdminControllers\Destinations\DestinationController@trekking_list')->name('admin.trekking');
     Route::post('banner-isdefault/{id?}', 'AdminControllers\Banners\BannerController@isdefault')->name('banner.isdefault');
     Route::post('activity-isdefault/{id?}', 'AdminControllers\Travels\ActivityController@isdefault')->name('activity.isdefault');
-    Route::get('admin/tour-trip/{id}','AdminControllers\Destinations\DestinationController@filter'); //Was trip-expedition
-    Route::get('admin/trip-region/{id}','AdminControllers\Travels\RegionController@filter');
-    Route::delete('admin/tour-trip/{id}','AdminControllers\Destinations\TripController@destroy'); //delete Trip
-    Route::delete('admin/trip-region/{id}','AdminControllers\Travels\TripController@destroy');
+    Route::get('admin/tour-trip/{id}', 'AdminControllers\Destinations\DestinationController@filter'); //Was trip-expedition
+    Route::get('admin/trip-region/{id}', 'AdminControllers\Travels\RegionController@filter');
+    Route::delete('admin/tour-trip/{id}', 'AdminControllers\Destinations\TripController@destroy'); //delete Trip
+    Route::delete('admin/trip-region/{id}', 'AdminControllers\Travels\TripController@destroy');
     Route::put('tripstatus/{id}', 'AdminControllers\Travels\TripController@tripstatus')->name('admin.tripstatus');
-    Route::get('admin/banner-trip', 'AdminControllers\Travels\TripController@banner_trip' )->name('banner.trip');
-    
+    Route::get('admin/banner-trip', 'AdminControllers\Travels\TripController@banner_trip')->name('banner.trip');
+
     // For posttype
     Route::get('type/{posttype}', 'AdminControllers\Posts\PostTypeController@index')->name('type.posttype.index');
     Route::get('type/{posttype}/create', 'AdminControllers\Posts\PostTypeController@create')->name('type.posttype.create');
@@ -119,8 +120,8 @@ Route::middleware(['auth'])->group(function () {
     // Delete Thumbnails, Banners, PDF
     Route::delete('delete_banner_thumb/{id}', 'AdminControllers\Posts\PostController@delete_banner_thumb');
     Route::delete('delete_post_thumb/{id}', 'AdminControllers\Posts\PostController@delete_post_thumb');
-    Route::delete('thumbdelete/{id}','AdminControllers\Teams\TeamController@thumbdelete');
-    Route::delete('bannerdelete/{id}','AdminControllers\Teams\TeamController@bannerdelete');
+    Route::delete('thumbdelete/{id}', 'AdminControllers\Teams\TeamController@thumbdelete');
+    Route::delete('bannerdelete/{id}', 'AdminControllers\Teams\TeamController@bannerdelete');
     Route::delete('delete_activity_thumb/{id}', 'AdminControllers\Travels\ActivityController@delete_activity_thumb');
     Route::delete('delete_activity_icon/{id}', 'AdminControllers\Travels\ActivityController@delete_activity_icon');
     Route::delete('delete_tripgroup_thumb/{id}', 'AdminControllers\Travels\TripGroupController@delete_tripgroup_thumb');
@@ -137,12 +138,12 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('delete_trip_banner_thumb/{id}', 'AdminControllers\Travels\TripController@delete_trip_banner_thumb');
     Route::delete('delete_map_thumb/{id}', 'AdminControllers\Travels\TripController@delete_map_thumb');
     Route::delete('delete_activity_banner/{id}', 'AdminControllers\Travels\ActivityGroupController@delete_activity_banner');
-    Route::get('delete_worked_with/{id}','AdminControllers\Settings\SettingController@banner_destroy')->name('banner-destroy');
-    Route::get('delete_banner/{id}','AdminControllers\Settings\SettingController@banner_remove')->name('banner-remove');
-    Route::get('delete_affililiated_with/{id}','AdminControllers\Settings\SettingController@mobile_banner_destroy')->name('mob-banner-destroy');
+    Route::get('delete_worked_with/{id}', 'AdminControllers\Settings\SettingController@banner_destroy')->name('banner-destroy');
+    Route::get('delete_banner/{id}', 'AdminControllers\Settings\SettingController@banner_remove')->name('banner-remove');
+    Route::get('delete_affililiated_with/{id}', 'AdminControllers\Settings\SettingController@mobile_banner_destroy')->name('mob-banner-destroy');
 
 
-// Associated post
+    // Associated post
     Route::get('admin/associated/{type}/{id}', 'AdminControllers\Posts\AssociatedPostController@associated_post')->name('associated.post.index');
     Route::get('admin/associated/{type}/{id}/create', 'AdminControllers\Posts\AssociatedPostController@create')->name('admin.associated.create');
     Route::post('admin/associated/{type}/{id}/store', 'AdminControllers\Posts\AssociatedPostController@store')->name('admin.associated.store');
@@ -154,20 +155,20 @@ Route::middleware(['auth'])->group(function () {
     // cost excludes
     Route::delete('admin/trip/{id}/{info_id}', 'AdminControllers\Cost\CostExcludesController@destroy')->name('supporting-info.destroy');
     Route::delete('admin/itinerary/{id?}/{info_id?}', 'AdminControllers\Travels\TripItineraryController@destroy')->name('itinerary.destroy');
-   
+
     Route::post('admin/gear_thumb_update/{id}', 'AdminControllers\Travels\TripGearController@gear_thumb_update')->name('gear_thumb_update');
 
-     //Trip Review (Bibek)
-    Route::get('admin-trip-review','AdminControllers\Review\TripReviewController@trip_review')->name('trip-review');
-    Route::any('admin-trip-review/create-review','AdminControllers\Review\TripReviewController@post_trip_review')->name('post-trip-review');
-    Route::post('admin-review-status','AdminControllers\Review\TripReviewController@review_status')->name('review-status');
-    Route::get('admin-trip-edit-review/{id?}/edit','AdminControllers\Review\TripReviewController@edit_trip_review');
-    Route::post('admin-trip-edit-review/{id?}','AdminControllers\Review\TripReviewController@edit_trip_review')->name('edit-trip-review');
+    //Trip Review (Bibek)
+    Route::get('admin-trip-review', 'AdminControllers\Review\TripReviewController@trip_review')->name('trip-review');
+    Route::any('admin-trip-review/create-review', 'AdminControllers\Review\TripReviewController@post_trip_review')->name('post-trip-review');
+    Route::post('admin-review-status', 'AdminControllers\Review\TripReviewController@review_status')->name('review-status');
+    Route::get('admin-trip-edit-review/{id?}/edit', 'AdminControllers\Review\TripReviewController@edit_trip_review');
+    Route::post('admin-trip-edit-review/{id?}', 'AdminControllers\Review\TripReviewController@edit_trip_review')->name('edit-trip-review');
     Route::get('admin-trip-delete-review/{id?}', 'AdminControllers\Review\TripReviewController@delete_trip_review')->name('delete-trip-review');
 
     //Trip Booking (Bibek)
-    Route::get('admin-trip-booking','AdminControllers\Inquiry\TripBookingController@trip_booking')->name('trip-booking');
-    Route::get('admin-trip-booking-delete/{id?}','AdminControllers\Inquiry\TripBookingController@trip_booking_delete')->name('delete-booking'); 
+    Route::get('admin-trip-booking', 'AdminControllers\Inquiry\TripBookingController@trip_booking')->name('trip-booking');
+    Route::get('admin-trip-booking-delete/{id?}', 'AdminControllers\Inquiry\TripBookingController@trip_booking_delete')->name('delete-booking');
 
     // newsletter routes
     Route::get('send-newsletter', 'SendMailController@index')->name('send.newsletter');
@@ -184,19 +185,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('subscriber-edit/{id?}', 'SendMailController@useredit')->name('subscriber.update');
     Route::post('subscriber-edit/{id?}', 'SendMailController@useredit')->name('subscriber.edit');
     Route::get('subscriber-delete/{id?}', 'SendMailController@userdelete')->name('user.delete');
-    
+
 
     //For Pages
-	Route::get('adminpages/{page}', 'AdminControllers\Pages\PageController@index')->name('admin.page.index');
-	Route::get('adminpages/{page}/create', 'AdminControllers\Pages\PageController@create')->name('admin.page.create');
-	Route::post('adminpages/{page}/store', 'AdminControllers\Pages\PageController@store')->name('admin.page.store');
-	Route::put('adminpages/{page?}/{id?}', 'AdminControllers\Pages\PageController@update')->name('admin.page.update');
-	Route::get('adminpages/{page}/{id}/edit', 'AdminControllers\Pages\PageController@edit')->name('admin.page.edit');
+    Route::get('adminpages/{page}', 'AdminControllers\Pages\PageController@index')->name('admin.page.index');
+    Route::get('adminpages/{page}/create', 'AdminControllers\Pages\PageController@create')->name('admin.page.create');
+    Route::post('adminpages/{page}/store', 'AdminControllers\Pages\PageController@store')->name('admin.page.store');
+    Route::put('adminpages/{page?}/{id?}', 'AdminControllers\Pages\PageController@update')->name('admin.page.update');
+    Route::get('adminpages/{page}/{id}/edit', 'AdminControllers\Pages\PageController@edit')->name('admin.page.edit');
     Route::delete('adminpages/{page}/{id}', 'AdminControllers\Pages\PageController@destroy')->name('admin.page.destroy');
-	Route::delete('adminpages/{page}/{id}/{info_id}', 'AdminControllers\Pages\PageController@detailsdestroy')->name('details.destroy');
+    Route::delete('adminpages/{page}/{id}/{info_id}', 'AdminControllers\Pages\PageController@detailsdestroy')->name('details.destroy');
     Route::put('pagestatus/{id}', 'AdminControllers\Pages\PageController@pagestatus')->name('admin.pagestatus');
-    
-     // Upload Page multiple document
+
+    // Upload Page multiple document
     Route::get('pagedoc/multipledocument/{post_id}', 'AdminControllers\Pages\PageDocController@index')->name('pagedoc.index');
     Route::get('pagedoc/multipledocument/{post_id}/create', 'AdminControllers\Pages\PageDocController@create')->name('pagedoc.create');
     Route::post('pagedoc/multipledocument/store', 'AdminControllers\Pages\PageDocController@store')->name('pagedoc.store');
@@ -207,28 +208,28 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('delete_pagedoc_thumb/{id}', 'AdminControllers\Pages\PageDocController@delete_pagedoc_thumb');
 
     //Travel Guide
-     Route::get('admin-travel-guide','AdminControllers\TravelGuide\GuideController@travel_guide')->name('travel_guide');
-     Route::get('admin-travel-guide-index','AdminControllers\TravelGuide\GuideController@index')->name('travel_guide_index');
-     Route::get('admin-travel-guide-edit/{id?}','AdminControllers\TravelGuide\GuideController@edit')->name('travel_guide_edit');
-     Route::post('admin-travel-guide-update','AdminControllers\TravelGuide\GuideController@update')->name('travel_guide_update');
-     Route::delete('admin-travel-guide-delete/{id?}','AdminControllers\TravelGuide\GuideController@delete_image')->name('travel_guide_delete');
-     Route::post('admin-travel-guide','AdminControllers\TravelGuide\GuideController@travel_guide')->name('travel_guide_post');
-     Route::delete('delete_gear_guide_thumb/{id}', 'AdminControllers\TravelGuide\GuideController@delete_gear_guide_thumb');
+    Route::get('admin-travel-guide', 'AdminControllers\TravelGuide\GuideController@travel_guide')->name('travel_guide');
+    Route::get('admin-travel-guide-index', 'AdminControllers\TravelGuide\GuideController@index')->name('travel_guide_index');
+    Route::get('admin-travel-guide-edit/{id?}', 'AdminControllers\TravelGuide\GuideController@edit')->name('travel_guide_edit');
+    Route::post('admin-travel-guide-update', 'AdminControllers\TravelGuide\GuideController@update')->name('travel_guide_update');
+    Route::delete('admin-travel-guide-delete/{id?}', 'AdminControllers\TravelGuide\GuideController@delete_image')->name('travel_guide_delete');
+    Route::post('admin-travel-guide', 'AdminControllers\TravelGuide\GuideController@travel_guide')->name('travel_guide_post');
+    Route::delete('delete_gear_guide_thumb/{id}', 'AdminControllers\TravelGuide\GuideController@delete_gear_guide_thumb');
 
 
     //Delete Page Banner & Thumbnail
     Route::delete('delete_pagebanner_thumb/{id}', 'AdminControllers\Pages\PageController@delete_page_banner');
     Route::delete('delete_page_thumb/{id}', 'AdminControllers\Pages\PageController@delete_page_thumb');
 
-    View::composer(['*'], function($view){
-		$pagetype = App\Models\Pages\PageTypeModel::orderBy('ordering', 'asc')->get();
-		$view->with('pagetype', $pagetype);
-	});
+    View::composer(['*'], function ($view) {
+        $pagetype = App\Models\Pages\PageTypeModel::orderBy('ordering', 'asc')->get();
+        $view->with('pagetype', $pagetype);
+    });
 
     View::composer(['*'], function ($view) {
         $posttype = App\Models\Posts\PostTypeModel::orderBy('ordering', 'asc')->get();
         $view->with('posttype', $posttype);
     });
-    
+
 });
 
