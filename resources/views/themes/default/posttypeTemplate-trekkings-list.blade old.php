@@ -42,15 +42,33 @@
                 uk-scrollspy="target: [uk-scrollspy-class], h1, h3, span, p; cls: uk-animation-slide-top-small; delay: 20; repeat: false;">
                 <!-- start: list -->
                 @foreach($trekkings as $item)
+                    <!--<li>-->
+                    <!--  <div class="uk_trip uk-transition-toggle uk-link-toggle" uk-scrollspy-class>-->
+                    <!--    <a href="{{ route('page.regionlist', $item->uri) }}" class="uk-media-350 uk_trip_image uk-position-relative">-->
+                    <!--      <img src="@if($item->thumbnail){{ asset('uploads/original/'.$item->thumbnail) }}@else{{asset('themes-assets/images/default/default-thumbnail.png')}}@endif" class="uk-image uk-transition-scale-up uk-transition-opaque" alt="{{$item->title}}" loading="eager">-->
+                    <!--      <div class="uk-panel uk_trip_image_content uk-position-bottom">-->
+                    <!--        <h3 class="text-white uk-text-bold">{{$item->title}}</h3>-->
+                    <!--      </div>-->
+                    <!--    </a>-->
+                    <!--    <div class="uk_trip_content uk-flex uk-flex-between uk-flex-column">-->
+                    <!--      <div>-->
+                    <!--        <div class="uk-h3 uk-text-bold uk-margin-remove text-secondary-light" uk-scrollspy-class></div>-->
+                    <!--        <div class="f-14 uk-margin-top text-secondary-light" uk-scrollspy-class>{{$item->sub_title}}</div>-->
+                    <!--      </div>-->
+                    <!--      <a href="{{ route('page.regionlist', $item->uri) }}" class="uk-width-1-1 uk-button button-primary button-primary-active uk-margin-top" uk-scrollspy-class>View Details</a>-->
+                    <!--    </div>-->
+                    <!--  </div>-->
+                    <!--</li> -->
                     <li>
                         <div class="uk_trip uk-transition-toggle uk-link-toggle" uk-scrollspy-class>
-                            <a href="{{ url('page/' . tripurl($item->uri)) }}"
+                            <a href="{{ route('page.regionlist', $item->uri) }}"
                                 class="uk-media-350 uk_trip_image uk-position-relative">
-                                <img src="@if($item->thumbnail){{asset('uploads/original/' . $item->thumbnail)}}@else{{asset('themes-assets/images/default/default-thumbnail.png')}} @endif"
+                                <img src="@if($item->thumbnail){{ asset('uploads/original/' . $item->thumbnail) }}@else{{asset('themes-assets/images/default/default-thumbnail.png')}}@endif"
                                     class="uk-image uk-transition-scale-up uk-transition-opaque" alt="{{$item->title}}"
                                     loading="eager">
                                 <div class="uk-panel uk_trip_image_content2 uk-position-bottom">
-                                    <h3 class="text-white uk-text-bold ">{{$item->trip_title}}</h3>
+                                    <h3 class="text-white uk-text-bold ">{{$item->title}}</h3>
+                                    <!--<div class="f-14 text-white uk-webkit" uk-scrollspy-class>{{$item->sub_title}}</div>-->
                                 </div>
                             </a>
                         </div>
@@ -67,7 +85,7 @@
             <ul class=" uk-child-width-1-2@s uk-child-width-1-3@l uk-text-left" uk-height-match="target:.uk_trip_content"
                 uk-grid
                 uk-scrollspy="target: [uk-scrollspy-class], h1, h3, span, p; cls: uk-animation-slide-top-small; delay: 20; repeat: false;">
-                <h4>Comming Soon...!</h4>
+                <h4>Nothing to view!</h4>
             </ul>
         </div>
     @endif

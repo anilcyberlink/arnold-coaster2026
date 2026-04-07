@@ -43,20 +43,20 @@
          entity_encoding: 'raw',
          paste_auto_cleanup_on_paste: true,
          entities: '160,nbsp,38,amp,60,lt,62,gt',
-    
+
          file_picker_callback: function (callback, value, meta) {
            var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName(
              'body')[0].clientWidth;
            var y = window.innerHeight || document.documentElement.clientHeight || document
              .getElementsByTagName('body')[0].clientHeight;
-    
+
            var cmsURL = editor_config.path_absolute + 'laravel-filemanager?editor=' + meta.fieldname;
            if (meta.filetype == 'image') {
              cmsURL = cmsURL + "&type=Images";
            } else {
              cmsURL = cmsURL + "&type=Files";
            }
-       
+
            tinyMCE.activeEditor.windowManager.openUrl({
              url: cmsURL,
              title: 'Filemanager',
@@ -70,7 +70,7 @@
            });
          }
        };
-    
+
        tinymce.init(editor_config);
      </script>
      <style>
@@ -179,7 +179,7 @@
                                 </a>
                             </li>
                             @endforeach
-                        @endif                         
+                        @endif
                         </ul>
                     </li>
                     <li class="">
@@ -196,34 +196,34 @@
                            <li class="{{ (Request::segment(2) == 'pagetype')?'active':'' }}">
                               <a href="{{ url('admin/pagetype') }}">
                                 <span class="fa fa-arrows"></span>
-                                Page Types                
-                              </a>                
+                                Page Types
+                              </a>
                             </li>
                             <?php /*?>
                           <li>
                             <a href="{{ url('admin/pagecategory') }}">
                               <span class="fa fa-arrows"></span>
-                              Page Categories                
-                            </a>                
-                          </li> 
+                              Page Categories
+                            </a>
+                          </li>
                         <?php */?>
                       <!-- Page Type List -->
                       @if($pagetype)
                       @foreach($pagetype as $row)
-                     <li class="{{ (Request::segment(2) == $row->uri)?'active':'' }}">               
+                     <li class="{{ (Request::segment(2) == $row->uri)?'active':'' }}">
                         <a href="{{ url('adminpages/'.$row->uri)}}">
                           <span class="">></span>
-                          {{$row->page_type}}                 
-                        </a>                
+                          {{$row->page_type}}
+                        </a>
                       </li>
-                      @endforeach 
-                      @endif 
+                      @endforeach
+                      @endif
                        <!-- Page Type List -->
                     </ul>
-                      </li> 
+                      </li>
 
                        <li class="">
-               @if(Request::segment(2) == 'expedition'||Request::segment(2) == 'tour-trip'||Request::segment(2) == 'region'||Request::segment(2) == 'trip-region'||Request::segment(2) == 'activity'||Request::segment(2) == 'trip'||Request::segment(2) == 'tripgroup'||Request::segment(2) == 'banner-trip')
+               @if(Request::segment(2) == 'expedition'||Request::segment(2) == 'trekking'||Request::segment(2) == 'tour-trip'||Request::segment(2) == 'region'||Request::segment(2) == 'trip-region'||Request::segment(2) == 'activity'||Request::segment(2) == 'trip'||Request::segment(2) == 'tripgroup'||Request::segment(2) == 'banner-trip')
                     <a class="accordion-toggle menu-open">
                     @else
                      <a class="accordion-toggle">
@@ -232,26 +232,32 @@
                   <span class="sidebar-title">  Manage Trips</span>
                   <span class="caret"></span>
                 </a>
-                <ul class="nav sub-nav">                                            
+                <ul class="nav sub-nav">
                   <li class="{{ (Request::segment(2) == 'expedition'||Request::segment(2) == 'tour-trip')?'active':'' }}">
                     <a href="{{ route('expedition.index') }}">
                       <span class="fa fa fa-arrows-h"></span>
-                      Expeditions                
-                    </a>                
-                  </li> 
+                      Expeditions
+                    </a>
+                  </li>
+                  <li class="{{ Request::segment(2) == 'trekking' ? 'active':'' }}">
+                    <a href="{{ route('admin.trekking') }}">
+                      <span class="fa fa fa-arrows-h"></span>
+                      Trekking
+                    </a>
+                  </li>
                   <li class="{{ (Request::segment(2) == 'tripgroup')?'active':'' }}">
                     <a href="{{ route('tripgroup.index') }}">
                       <span class="fa fa fa-arrows-h"></span>
-                      Trip Group               
-                    </a>                
-                  </li> 
-                  <li class="{{ (Request::segment(2) == 'region'||Request::segment(2) == 'trip-region')?'active':'' }}">
+                      Trip Group
+                    </a>
+                  </li>
+                  <!-- <li class="{{ (Request::segment(2) == 'region'||Request::segment(2) == 'trip-region')?'active':'' }}">
                     <a href="{{ url('admin/region') }}">
                         <span class="fa fa fa-arrows-h"></span>
-                        Trekking Regions 
+                        Trekking Regions
                     </a>
-                    </li>
-                    
+                    </li> -->
+
                     <?php /*?>
                     {{-- <li class="{{ (Request::segment(2) == 'activity')?'active':'' }}">
                     <a href="{{ url('admin/activity') }}">
@@ -273,21 +279,21 @@
                     </a>
                     </li>
                   </ul>
-                 </li> 
+                 </li>
                  <li class="{{ (Request::segment(1) == 'admin-travel-guide-index'||Request::segment(1) == 'admin-travel-guide'||Request::segment(1) == 'admin-travel-guide-edit')?'active':'' }}">
                     <a href="{{ route('travel_guide_index') }}">
                         <span class="fa fa-book"></span>
                         <span class="sidebar-title">Travel Guide</span>
                     </a>
-                </li>      
+                </li>
                 <?php /*?>
                 {{-- <li class="{{ (Request::segment(2) == 'teams')?'active':'' }}">
                     <a href="{{ url('admin/teams') }}">
                         <span class="fa fa fa-user"></span>
-                        Manage Team 
+                        Manage Team
                     </a>
                 </li>                 --}}
-                 
+
                 {{-- <li class="{{ (Request::segment(1) == 'admin-trip-review')?'active':'' }}">
 
                     <a href="{{ route('trip-review') }}">
@@ -337,7 +343,7 @@
                   <span class="sidebar-title"> Booking & Inquiries</span>
                   <span class="caret"></span>
                 </a>
-                <ul class="nav sub-nav"> 
+                <ul class="nav sub-nav">
                 <li class="{{ (Request::segment(1) == 'contact-us')?'active':'' }}">
 
                   <a href="{{ url('contact-us') }}">
@@ -345,7 +351,7 @@
                       Contact Us
                   </a>
                 </li>
-                 
+
                     <li class="{{ (Request::segment(1) == 'admin-trip-booking')?'active':'' }}">
                   <a href="{{ route('trip-booking') }}">
                       <span class="fa fa-ticket "></span>
@@ -367,20 +373,20 @@
                     </a>
                    </li>
                     </ul>
-                 </li>                  
+                 </li>
                  <li class="{{ (Request::segment(2) == 'settings')?'active':'' }}">
                     <a href="{{ url('admin/settings') }}">
                         <span class="fa fa-cog "></span>
                         <span class="sidebar-title"> Settings </span>
                     </a>
-                </li>   
+                </li>
                       <li class="{{ (Request::segment(2) == 'laravel-filemanager')?'active':'' }}">
                         <a href="{{ url('/laravel-filemanager?type=Images') }}">
                             <span class="fa fa-cog text-info"></span>
                             <span class="sidebar-title"> File Manager </span>
                         </a>
                     </li>
-                    
+
                       <li class="{{ (Request::segment(2) == 'laravel-filemanager')?'active':'' }}">
                         <a href="{{ url('/laravel-filemanager?type=media') }}">
                             <span class="fa fa-cog text-info"></span>
@@ -394,12 +400,12 @@
             <!-- End: Topbar-Dropdown -->
             <header id="topbar">
                 <div class="topbar-left">
-                    <ol class="breadcrumb">                     
+                    <ol class="breadcrumb">
                         <li class="crumb-icon">
                             <a href="{{ url('dashboard') }}">
                                 <span class="glyphicon glyphicon-home"></span>
                             </a>
-                        </li>                      
+                        </li>
                     </ol>
                 </div>
 
@@ -566,7 +572,7 @@
             dateFormat: 'dd-mm-yy'
         });
     });
-    
+
     // Check File size is less than 2MB
     function checkFileSize(getFile, clearField){
         let size = getFile.size;
@@ -575,7 +581,7 @@
             toastr.error("Size can't exceed 2MB")
             clearField.value='';
         }
-        
+
     }
     </script>
     <!-- END: PAGE SCRIPTS -->

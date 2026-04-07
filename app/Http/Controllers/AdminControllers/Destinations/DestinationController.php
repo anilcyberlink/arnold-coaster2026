@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use App\Models\Destinations\DestinationModel;
+use App\Models\Travels\TripModel;
 
 
 class DestinationController extends Controller
@@ -42,10 +43,10 @@ class DestinationController extends Controller
      */
     public function store(Request $request)
     {
-         
+
         $request->validate([
-            'title'=>'required', 
-           'uri' => 'required|unique:cl_trip_destinations',         
+            'title'=>'required',
+           'uri' => 'required|unique:cl_trip_destinations',
           ]);
         $medium_width = env('MEDIUM_WIDTH');
         $medium_height = env('MEDIUM_HEIGHT');
@@ -123,15 +124,15 @@ class DestinationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $request->validate([
             'title'=>'required',
-             'uri' => 'required|unique:cl_trip_destinations,uri,'.$id,            
+             'uri' => 'required|unique:cl_trip_destinations,uri,'.$id,
           ]);
           $data = DestinationModel::find($id);
           $file = $request->file('thumbnail');
            $file2 = $request->file('banner');
-           if ($request->hasFile('thumbnail')) {           
+           if ($request->hasFile('thumbnail')) {
                 // Remove old file if exists
             $data = DestinationModel::find($id);
             if($data->thumbnail){
@@ -147,8 +148,8 @@ class DestinationController extends Controller
         $image->move($destinationPath, $name);
         $data['thumbnail'] = $name;
         }
-        
-        if ($request->hasFile('banner')) {           
+
+        if ($request->hasFile('banner')) {
                 // Remove old file if exists
             $data = DestinationModel::find($id);
             if($data->banner){
@@ -164,7 +165,7 @@ class DestinationController extends Controller
         $image->move($destinationPath, $name);
         $data['banner'] = $name;
         }
-        
+
       $data->title = $request->title;
       $data->sub_title = $request->sub_title;
       $data->uri = Str::slug($request->uri);
@@ -201,7 +202,7 @@ class DestinationController extends Controller
         $data->delete();
         return "Destroy Success";
     }
-    
+
      public function filter($id)
     {
         $data = DestinationModel::find($id)->trips()->get();
@@ -210,7 +211,7 @@ class DestinationController extends Controller
 
     public function delete_banner($id)
     {
-        $data = DestinationModel::find($id);       
+        $data = DestinationModel::find($id);
          if($data->banner){
           if(file_exists(env('PUBLIC_PATH').'uploads/original/' . $data->banner)){
             unlink(env('PUBLIC_PATH').'uploads/original/' . $data->banner);
@@ -223,7 +224,7 @@ class DestinationController extends Controller
 
     public function delete_thumb($id)
     {
-        $data = DestinationModel::find($id);       
+        $data = DestinationModel::find($id);
          if($data->thumbnail){
           if(file_exists(env('PUBLIC_PATH').'uploads/original/' . $data->thumbnail)){
             unlink(env('PUBLIC_PATH').'uploads/original/' . $data->thumbnail);
@@ -232,6 +233,13 @@ class DestinationController extends Controller
         $data->thumbnail = NULL;
         $data->save();
         return response('Delete Successful.');
+    }
+
+    public function trekking_list()
+    {
+        $data = TripModel::where('trip_type','1')->get();
+        // dd($data);
+        return view('admin.destinations.trek-list',compact('data'));
     }
 
 

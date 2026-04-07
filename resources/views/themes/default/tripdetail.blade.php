@@ -1,7 +1,7 @@
 @extends('themes.default.common.master')
 @section('title',$data->trip_title)
 @section('meta_keyword',$data->meta_keyword)
-@section('meta_description',$data->meta_description)      
+@section('meta_description',$data->meta_description)
 @section('thumbnail',$data->thumbnail)
 @section('brief',$data->trip_excerpt)
 @section('content')
@@ -89,7 +89,7 @@
                     <img src="{{asset('themes-assets/images/icons_new/Grade4.png')}}" alt="{{$data->trip_grade}}" width="50">
                    @endif
 
-                    
+
                   </div>
                   <div>
                     <div>
@@ -245,11 +245,11 @@
       </li>
 
       @endif
-      @if($trip_docs->count()>0 || $gear_insurance || $gear_payment)
+      <!-- @if($trip_docs->count()>0 || $gear_insurance || $gear_payment)
       <li>
         <a href="">Gears List</a>
       </li>
-      @endif
+      @endif -->
       @if($photo_videos->count() > 0)
       <li>
         <a href="">Photo/Videos</a>
@@ -265,7 +265,7 @@
             {!!$data->trip_excerpt!!}
             <br>
             <div class="uk-margin-top toggle0001" hidden id="toggle0001">
-            {!!$data->trip_content!!} 
+            {!!$data->trip_content!!}
             </div>
             @if($data->trip_content)
             <a class="text-primary toggle0001" href="#toggle0001" uk-toggle="target: .toggle0001; animation: uk-animation-fade">Read More <i class="fa fa-plus"></i></a>
@@ -318,7 +318,7 @@
           @endif
           <!--  -->
           <div class="uk-width-1-3@m">
-            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;"> 
+            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;">
               @include('themes.default.common.trip-action')
              </div>
           </div>
@@ -343,7 +343,7 @@
           <!--  -->
           <!--  -->
           <div class="uk-width-1-3@m">
-            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;"> 
+            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;">
               @include('themes.default.common.trip-action')
             </div>
           </div>
@@ -462,7 +462,7 @@
           <!--  -->
           <!--  -->
           <div class="uk-width-1-3@m">
-            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;"> 
+            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;">
               @include('themes.default.common.trip-action')
              </div>
           </div>
@@ -528,7 +528,7 @@
                       <div class="uk-media-150 uk-more-images  uk-border-rounded">
                         <img src="{{ asset('/uploads/original/' . $row->thumbnail) }}" uk-img alt="{{$row->title}}">
                         @if ($loop->iteration >= 3)
-                        <span class="uk-h1 uk-position-center uk-light uk-margin-remove text-white " style="z-index: 1;">+ {{ $loop->remaining }}</span>             
+                        <span class="uk-h1 uk-position-center uk-light uk-margin-remove text-white " style="z-index: 1;">+ {{ $loop->remaining }}</span>
                         <div class="uk-overlay-primary uk-position-cover"></div>
                         @endif
                       </div>
@@ -570,7 +570,7 @@
           <!--  -->
           <!--  -->
           <div class="uk-width-1-3@m">
-            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;"> 
+            <div class="uk-trip-sidebar uk-clearfix uk-sticky uk-z-index-zero" uk-sticky="offset: 155; end: !.uk-trippage;">
               @include('themes.default.common.trip-action')
             </div>
           </div>
