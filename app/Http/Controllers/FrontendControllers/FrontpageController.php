@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Mail\BookingComplete;
 use App\Mail\SendMailContact;
 use App\Mail\AdminBookingMail;
+use App\Mail\UserBookingMail;
 use App\Mail\AdminInquiryMail;
 use App\Models\Team\TeamModel;
 use App\Models\Pages\PageModel;
@@ -41,6 +42,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Destinations\DestinationModel;
 use App\Models\Pages\PageDocModel;
 use Session;
+use App\Mail\AdminContactMail;
 
 
 class FrontpageController extends Controller
@@ -249,29 +251,79 @@ class FrontpageController extends Controller
     }
 
     //  <! ---Booking a Trip Controller--- !>
+    // public function post_tripbooking(Request $request)
+    // {
+    //     if ($request->isMethod('post')) {
+    //         // dd($request->all());
+    //         $request->validate([
+    //             'full_name' => 'required',
+    //             'email' => 'required',
+    //             'phone' => 'required',
+    //             'country' => 'required',
+    //             'h-captcha-response' => 'required|HCaptcha',
+    //         ]);
+    //         $form = \Illuminate\Support\Facades\Request::input();
+    //         if ($request->terms_conditions) {
+    //             $create = BookingModel::create($form);
+    //             if ($create) {
+    //                 // Mail::send(new \App\Mail\AdminBookingMail($request->email));
+    //                 return redirect()->route('page.bookingsuccess')->with('success', 'Booking completed successfully');
+    //             }
+    //         } else {
+    //             return back()->with('message', 'Please agree to the terms and conditions.');
+    //         }
+
+    //     }
+    // }
     public function post_tripbooking(Request $request)
     {
-        if ($request->isMethod('post')) {
-            // dd($request->all());
-            $request->validate([
-                'full_name' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'country' => 'required',
-                'h-captcha-response' => 'required|HCaptcha',
-            ]);
-            $form = \Illuminate\Support\Facades\Request::input();
-            if ($request->terms_conditions) {
-                $create = BookingModel::create($form);
-                if ($create) {
-                    // Mail::send(new \App\Mail\AdminBookingMail($request->email));
-                    return redirect()->route('page.bookingsuccess')->with('success', 'Booking completed successfully');
-                }
-            } else {
-                return back()->with('message', 'Please agree to the terms and conditions.');
+        $request->validate([
+            'trip_id'     => 'required|integer',
+            'full_name'   => 'required|string|max:255',
+            'email'       => 'required|email',
+            'phone'       => 'required|string|max:20',
+            'country'     => 'required|string|max:100',
+            'num_people'  => 'required|integer|min:1',
+            'departure_date' => 'required|date',
+            'terms_conditions' => 'required',
+            'h-captcha-response' => 'required|HCaptcha',
+        ]);
+
+        $booking = BookingModel::create([
+            'trip_id'          => $request->trip_id,
+            'title'            => $request->title,
+            'departure_date'   => $request->departure_date,
+            'num_people'       => $request->num_people,
+            'full_name'        => $request->full_name,
+            'email'            => $request->email,
+            'country'          => $request->country,
+            'phone'            => $request->phone,
+            'comments'         => $request->comments,
+            'terms_conditions' => $request->terms_conditions,
+            'status'           => 0,
+        ]);
+
+        if ($booking) {
+
+            // ✅ Send email (optional)
+            // return new UserBookingMail($booking);
+            try {
+                Mail::to('info@arnoldcoster.com')->send(new AdminBookingMail($booking));
+            } catch (\Exception $e) {
+                \Log::error('Mail failed: ' . $e->getMessage());
+            }
+            try {
+                Mail::to($booking->email)->send(new UserBookingMail($booking));
+            } catch (\Exception $e) {
+                \Log::error('Mail failed: ' . $e->getMessage());
             }
 
+            return redirect()
+                ->route('page.bookingsuccess')
+                ->with('success', 'Booking completed successfully');
         }
+
+        return back()->with('error', 'Something went wrong. Please try again.');
     }
 
     public function post_inquiry(Request $request)
@@ -375,13 +427,11 @@ class FrontpageController extends Controller
             'number' => 'required',
             'country' => 'required',
             'h-captcha-response' => 'required|HCaptcha',
-
-
         ]);
 
         if ($request->isMethod('post')) {
 
-            $create = Contact::create([
+            $data = Contact::create([
                 'full_name' => $request->first_name,
                 'email' => $request->email,
                 'number' => $request->number,
@@ -389,8 +439,14 @@ class FrontpageController extends Controller
                 'country' => $request->country,
                 'title' => $request->title
             ]);
-            //   return new \App\Mail\AdminContactMail($request->email);
-            // Mail::send(new \App\Mail\Contact($request->email));
+
+            // return new AdminContactMail($data);
+            try {
+                Mail::to('info@arnoldcoster.com')->send(new AdminContactMail($data));
+            } catch (\Exception $e) {
+                \Log::error('Mail failed: ' . $e->getMessage());
+            }
+
             return back()->with('message', 'Contact Form submitted successfully');
         }
     }

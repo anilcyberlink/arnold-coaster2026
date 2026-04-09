@@ -3,42 +3,33 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Settings\SettingModel;
 
 class AdminBookingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $booking;
+
+    public function __construct($booking)
     {
-        //
+        $this->booking = $booking;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build(Request $request)
+    public function build()
     {
-        $data = SettingModel::where('id',1)->first();
-        $num_ppl = $request->num_people;
-        $start_date = $request->departure_date;
-        $mail = $request->email;
-        $name = $request->full_name;
-        $country = $request->country;
-        $contact = $request->phone;
-        $message = $request->comments;
-        $email = $data->email_primary;
-        return $this->view('emails.admin-bookingmail', ['start_date' => $start_date,'num_ppl'=> $num_ppl,'email' => $mail,'name'=>$name,'country'=>$country,'contact'=>$contact,'messages'=>$message])->to($email);
+        return $this->view('emails.admin-bookingmail')
+            ->with([
+                'start_date' => $this->booking->departure_date,
+                'num_ppl'    => $this->booking->num_people,
+                'email'      => $this->booking->email,
+                'name'       => $this->booking->full_name,
+                'country'    => $this->booking->country,
+                'contact'    => $this->booking->phone,
+                'messages'   => $this->booking->comments,
+                'trip_title' => $this->booking->title,
+            ])
+            ->subject('New Trip Booking Inquiry');
     }
 }
